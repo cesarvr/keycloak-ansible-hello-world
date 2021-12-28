@@ -1,0 +1,22 @@
+{
+    "config": {
+        "active": [
+            "true"
+        ],
+        "algorithm": [
+            "RS256"
+        ],
+        "enabled": [
+            "true"
+        ],
+        "keySize": [
+            "2048"
+        ],
+        "priority": [
+            "0"
+        ]
+    },
+    "name": "rsa-generated-for-heroes",
+    "providerId": "rsa-generated",
+    "providerType": "org.keycloak.keys.KeyProvider"
+}

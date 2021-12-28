@@ -1,0 +1,24 @@
+{
+    "access": {
+        "impersonate": true,
+        "manage": true,
+        "manageGroupMembership": true,
+        "mapRoles": true,
+        "view": true
+    },
+    "createdTimestamp": 1638536188769,
+    "disableableCredentialTypes": [],
+    "email": "cxavier@redhat.com",
+    "emailVerified": false,
+    "enabled": true,
+    "firstName": "Charles",
+    "id": "2aff4338-e413-4c73-a61b-42276b96ef9a",
+    "lastName": "Xavier",
+    "notBefore": 0,
+    "requiredActions": [
+        "UPDATE_PASSWORD", 
+        "CONFIGURE_TOTP"
+    ],
+    "totp": false,
+    "username": "Professor X"
+}

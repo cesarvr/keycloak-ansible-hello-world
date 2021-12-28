@@ -1,0 +1,101 @@
+- hosts: localhost 
+  gather_facts: no
+  vars: 
+   - session: ''  
+   - realm: 'heroes'
+   - endpoint_rhsso: https://sso-cvaldezr-stage.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+     #- endpoint_rhsso: http://192.168.1.100:8080 
+     #- endpoint_rhsso: http://138.68.151.157:8080 
+
+  tasks:
+    - name: Login 
+      register: session  
+      cesarvr.keycloak.login:
+        username: admin
+        password: admin
+        endpoint: '{{endpoint_rhsso}}' 
+    - debug: var=session
+
+    - name: Reset 
+      register: result
+      cesarvr.keycloak.resource: 
+        name: realm 
+        id: 'id'
+        token: '{{session.result.token}}'
+        endpoint: '{{endpoint_rhsso}}' 
+        payload: files/realm.json
+        state: absent
+
+    - name: Creates a realm 
+      register: result
+      cesarvr.keycloak.resource: 
+        name: realm 
+        id: 'id'
+        token: '{{session.result.token}}'
+        endpoint: '{{endpoint_rhsso}}' 
+        payload: files/realm.json
+        state: present    
+
+    - name: Add Marvel Group 
+      cesarvr.keycloak.resource: 
+        name: groups 
+        id: name
+        realm: '{{realm}}'
+        token: '{{session.result.token}}'
+        endpoint: '{{endpoint_rhsso}}' 
+        payload: files/groups/marvel.json
+        state: present    
+
+    - name: Add DC Group 
+      cesarvr.keycloak.resource: 
+        name: groups 
+        id: name
+        realm: '{{realm}}'
+        token: '{{session.result.token}}'
+        endpoint: '{{endpoint_rhsso}}' 
+        payload: files/groups/dc.json
+        state: present    
+
+    - name: Creates Characters from files/users/DC   
+      cesarvr.keycloak.resources_from_folder: 
+        name: users 
+        id: 'username'
+        realm: '{{realm}}'
+        token: '{{session.result.token}}'
+        endpoint: '{{endpoint_rhsso}}' 
+        folder: files/users/DC/
+        state: present    
+
+
+    - name: Creating Characters from files/users/Marvel   
+      cesarvr.keycloak.resources_from_folder: 
+        name: users 
+        id: 'username'
+        realm: '{{realm}}'
+        token: '{{session.result.token}}'
+        endpoint: '{{endpoint_rhsso}}' 
+        folder: files/users/Marvel/
+        state: present    
+
+ 
+    - name: Adding Client For DC  
+      cesarvr.keycloak.resource: 
+        name: clients 
+        id: clientId
+        realm: '{{realm}}'
+        token: '{{session.result.token}}'
+        endpoint: '{{endpoint_rhsso}}' 
+        payload: files/clients/dc.json
+        state: present   
+
+    - name: Adding client for Marvel  
+      cesarvr.keycloak.resource: 
+        name: clients 
+        id: clientId
+        realm: '{{realm}}'
+        token: '{{session.result.token}}'
+        endpoint: '{{endpoint_rhsso}}' 
+        payload: files/clients/marvel.json
+        state: present    
+
+

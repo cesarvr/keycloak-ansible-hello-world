@@ -1,0 +1,40 @@
+{
+    "config": {
+        "allowPasswordAuthentication": [
+            "false"
+        ],
+        "cachePolicy": [
+            "DEFAULT"
+        ],
+        "debug": [
+            "false"
+        ],
+        "editMode": [],
+        "enabled": [
+            "false"
+        ],
+        "evictionDay": [],
+        "evictionHour": [],
+        "evictionMinute": [],
+        "kerberosRealm": [
+            "FOO.ORG"
+        ],
+        "keyTab": [
+            "/etc/keytab"
+        ],
+        "maxLifespan": [],
+        "priority": [
+            "0"
+        ],
+        "serverPrincipal": [
+            "HTTP/foo"
+        ],
+        "updateProfileFirstLogin": [
+            "false"
+        ]
+    },
+    "name": "kerberos-atlas-1",
+    "parentId": "heroes",
+    "providerId": "kerberos",
+    "providerType": "org.keycloak.storage.UserStorageProvider"
+}
