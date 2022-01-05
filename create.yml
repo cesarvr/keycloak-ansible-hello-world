@@ -56,6 +56,41 @@
         payload: files/groups/dc.json
         state: present    
 
+    - name: Adding Roles [hero, villain]   
+      cesarvr.keycloak.resources_from_folder: 
+        name: roles 
+        id: name
+        realm: '{{realm}}'
+        token: '{{session.result.token}}'
+        endpoint: '{{endpoint_rhsso}}' 
+        folder: files/roles/
+        state: present    
+
+    - name: Adding Roles [hero, villain] to DC group   
+      register: result
+      cesarvr.keycloak.add_roles_to_group: 
+        group: DC 
+        roles: 
+          - hero 
+          - villain
+        realm: 'heroes'
+        token: '{{session.result.token}}'
+        endpoint: '{{endpoint_rhsso}}' 
+        state: present    
+
+    - name: Adding Roles [hero, villain] to Marvel group   
+      register: result
+      cesarvr.keycloak.add_roles_to_group: 
+        group: Marvel 
+        roles: 
+          - hero 
+          - villain
+        realm: 'heroes'
+        token: '{{session.result.token}}'
+        endpoint: https://sso-cvaldezr-stage.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+        state: present    
+    - debug: var=result
+
     - name: Creates Characters from files/users/DC   
       cesarvr.keycloak.resources_from_folder: 
         name: users 
@@ -66,18 +101,16 @@
         folder: files/users/DC/
         state: present    
 
+          #- name: Creating Characters from files/users/Marvel   
+          #cesarvr.keycloak.resources_from_folder: 
+          #name: users 
+          #id: 'username'
+          #realm: '{{realm}}'
+          #token: '{{session.result.token}}'
+          #endpoint: '{{endpoint_rhsso}}' 
+          #folder: files/users/Marvel/
+          #state: present    
 
-    - name: Creating Characters from files/users/Marvel   
-      cesarvr.keycloak.resources_from_folder: 
-        name: users 
-        id: 'username'
-        realm: '{{realm}}'
-        token: '{{session.result.token}}'
-        endpoint: '{{endpoint_rhsso}}' 
-        folder: files/users/Marvel/
-        state: present    
-
- 
     - name: Adding Client For DC  
       cesarvr.keycloak.resource: 
         name: clients 
@@ -97,5 +130,45 @@
         endpoint: '{{endpoint_rhsso}}' 
         payload: files/clients/marvel.json
         state: present    
+
+    - name: DC Heroes Joining DC Group   
+      cesarvr.keycloak.join_group: 
+        name: DC 
+        realm: '{{realm}}'
+        token: '{{session.result.token}}'
+        endpoint: '{{endpoint_rhsso}}' 
+        folder: files/users/DC/
+        state: present    
+
+    - name: DC Heroes Joining DC Group   
+      cesarvr.keycloak.join_group: 
+        name: DC 
+        realm: '{{realm}}'
+        token: '{{session.result.token}}'
+        endpoint: '{{endpoint_rhsso}}' 
+        folder: files/users/DC/
+        state: present    
+
+    - name: Adding Custom Flow
+      cesarvr.keycloak.resource: 
+        name: authentication 
+        id: alias
+        realm: '{{realm}}'
+        token: '{{session.result.token}}'
+        endpoint: '{{endpoint_rhsso}}' 
+        payload: files/my-custom-registration/parent-flow.json
+        state: present    
+
+    - name: Configuring Custom Registration
+      cesarvr.keycloak.authentication_flow: 
+        name: authentication 
+        parent_flow: files/my-custom-registration/parent-flow.json
+        realm: '{{realm}}'
+        token: '{{session.result.token}}'
+        endpoint: '{{endpoint_rhsso}}' 
+        payload: files/my-custom-registration/executors/flow-tree.json
+        state: present    
+
+
 
 
