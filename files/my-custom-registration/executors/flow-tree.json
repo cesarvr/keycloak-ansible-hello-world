@@ -1,5 +1,4 @@
-[
-    {
+[ {
         "authenticationFlow": true,
         "configurable": false,
         "displayName": "_xx1_",
@@ -8,7 +7,7 @@
         "index": 0,
         "level": 0,
         "providerId": "registration-page-form",
-        "requirement": "DISABLED",
+        "requirement": "REQUIRED",
         "requirementChoices": [
             "REQUIRED",
             "DISABLED"
@@ -93,7 +92,7 @@
         "index": 0,
         "level": 3,
         "providerId": "docker-http-basic-authenticator",
-        "requirement": "DISABLED",
+        "requirement": "REQUIRED",
         "requirementChoices": [
             "REQUIRED"
         ]

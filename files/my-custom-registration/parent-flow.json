@@ -1,6 +1,6 @@
 {
         "alias": "my_custom_http_challenge",
-        "builtIn": true,
+        "builtIn": false,
         "description": "An authentication flow based on challenge-response HTTP Authentication Schemes",
         "providerId": "basic-flow",
         "topLevel": true

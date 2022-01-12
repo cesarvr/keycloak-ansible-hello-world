@@ -1,0 +1,28 @@
+- hosts: localhost 
+  gather_facts: no
+  vars: 
+   - session: ''  
+   - realm: 'heroes'
+   - endpoint_rhsso: https://sso-cvaldezr-stage.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+     #- endpoint_rhsso: http://192.168.1.100:8080 
+     #- endpoint_rhsso: http://138.68.151.157:8080 
+
+  tasks:
+    - name: Login 
+      register: session  
+      cesarvr.keycloak.login:
+        username: admin
+        password: admin
+        endpoint: '{{endpoint_rhsso}}' 
+    - debug: var=session
+
+    - name: Update Client For DC  
+      cesarvr.keycloak.resource: 
+        name: clients 
+        id: clientId
+        realm: '{{realm}}'
+        token: '{{session.result.token}}'
+        endpoint: '{{endpoint_rhsso}}' 
+        payload: files/updates/dc.json
+        state: present   
+

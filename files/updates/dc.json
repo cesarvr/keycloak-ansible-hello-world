@@ -1,0 +1,53 @@
+{
+    "access": {
+        "configure": true,
+        "manage": true,
+        "view": true
+    },
+    "attributes": {},
+    "authenticationFlowBindingOverrides": {},
+    "bearerOnly": false,
+    "clientAuthenticatorType": "client-secret",
+    "clientId": "dc",
+    "consentRequired": false,
+    "defaultClientScopes": [
+        "web-origins",
+        "role_list",
+        "email"
+    ],
+    "directAccessGrantsEnabled": true,
+    "enabled": true,
+    "frontchannelLogout": false,
+    "fullScopeAllowed": true,
+    "id": "7bdd87f3-7be9-4735-8904-2bcde978b3f9",
+    "implicitFlowEnabled": false,
+    "nodeReRegistrationTimeout": -1,
+    "notBefore": 0,
+    "optionalClientScopes": [
+        "address",
+        "phone"
+    ],
+    "protocol": "openid-connect",
+    "protocolMappers": [
+        {
+            "config": {
+                "access.token.claim": "true",
+                "claim.name": "roles",
+                "id.token.claim": "true",
+                "multivalued": "true",
+                "userinfo.token.claim": "true"
+            },
+            "consentRequired": false,
+            "id": "f64ef892-5c19-4761-80ea-5ecbcee433af",
+            "name": "realm.roles",
+            "protocol": "openid-connect",
+            "protocolMapper": "oidc-usermodel-realm-role-mapper"
+        }
+    ],
+    "publicClient": true,
+    "redirectUris": [],
+    "serviceAccountsEnabled": false,
+    "standardFlowEnabled": true,
+    "surrogateAuthRequired": false,
+    "webOrigins": []
+}
